@@ -43,8 +43,4 @@ build/
 # debug information files
 *.dwo
 
-# Benchmark / run outputs (keep directory via results/.gitkeep)
-results/*
-!results/.gitkeep
-
 .vscode
