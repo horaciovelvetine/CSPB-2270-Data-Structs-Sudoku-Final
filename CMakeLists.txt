@@ -21,18 +21,32 @@ FetchContent_MakeAvailable(googletest)
 include(GoogleTest)
 
 set(SUDOKU_SOURCES
-    src/square.cpp
-    src/board.cpp
+    src/models/board.cpp
+    src/sp1_all_square_permutations.cpp
+    src/sp2_brute_force_all_board_permutations.cpp
+    src/sp3_row_column_prune_board_permutations.cpp
+    src/sp4_row_column_independence_2x2.cpp
+    src/sp5_try_rows_check_columns_2x2.cpp
 )
 
+# Tracked data/ for generated artifacts (e.g. all square permutations CSV)
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/data)
+
 add_executable(sudoku-structs main.cpp ${SUDOKU_SOURCES})
-target_include_directories(sudoku-structs PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+target_include_directories(sudoku-structs PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/models
+)
+# Absolute path to project `data/` so the CSV is written to the repo root without relying on cwd
+target_compile_definitions(sudoku-structs PRIVATE
+    "SUDOKU_DATA_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}/data\"")
 
 enable_testing()
 
 add_executable(sudoku_tests tests/test_board_square_gtest.cpp ${SUDOKU_SOURCES})
 target_include_directories(sudoku_tests PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/models
     ${CMAKE_CURRENT_SOURCE_DIR}/tests
 )
 target_link_libraries(sudoku_tests PRIVATE GTest::gtest_main)

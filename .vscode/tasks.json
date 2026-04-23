@@ -1,0 +1,56 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Build",
+			"detail": "Configure (Release) and compile all targets.",
+			"type": "shell",
+			"command": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"problemMatcher": ["$gcc"],
+			"presentation": {
+				"reveal": "always",
+				"panel": "shared",
+				"focus": false
+			}
+		},
+		{
+			"label": "Build and run sudoku-structs",
+			"detail": "Configure, build, then run ./build/sudoku-structs.",
+			"type": "shell",
+			"command": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build && ./build/sudoku-structs",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"group": "build",
+			"problemMatcher": ["$gcc"],
+			"presentation": {
+				"reveal": "always",
+				"panel": "shared",
+				"focus": true
+			}
+		},
+		{
+			"label": "Build and run tests",
+			"detail": "Configure, build, then run CTest (sudoku_tests and discovered cases).",
+			"type": "shell",
+			"command": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build && ctest --test-dir build --output-on-failure",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"group": "build",
+			"problemMatcher": ["$gcc"],
+			"presentation": {
+				"reveal": "always",
+				"panel": "shared",
+				"focus": true
+			}
+		}
+	]
+}
