@@ -32,9 +32,6 @@
  * inner check is a pair of `(mask >> idx) & 1` ops. Contrast with the
  * set-merge formulation in `sp5_try_row_column_merge_2x2.cpp`, which instead
  * intersects R+(C) with C-(B) at block D.
- *
- * Both routines return the same 288 boards; this file is the "row-first,
- * column-verified" counterpart.
  */
 
 #include <array>
